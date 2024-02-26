@@ -114,7 +114,7 @@ jobs:
 
     # Create/Update comment with action deployment status
       - name: Create or Update Comment with Deployment URL
-        if: ${{ fromJSON(env.EVENT_JSON).action != 'closed' }}
+        # if: ${{ fromJSON(env.EVENT_JSON).action != 'closed' }}
         uses: peter-evans/create-or-update-comment@v2
         with:
             comment-id: ${{ steps.notification.outputs.comment-id }}
