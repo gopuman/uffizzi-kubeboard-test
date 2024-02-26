@@ -26,32 +26,32 @@ jobs:
       pr-number: ${{ env.PR_NUMBER }}
       action: ${{ env.ACTION }}
     steps:
-      - name: 'Download artifacts'
-        uses: actions/github-script@v6
-        with:
-          script: |
-            let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                run_id: context.payload.workflow_run.id,
-            });
-            let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "preview-spec"
-            })[0];
-            if (matchArtifact === undefined) {
-              throw TypeError('Build Artifact not found!');
-            }
-            let download = await github.rest.actions.downloadArtifact({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                artifact_id: matchArtifact.id,
-                archive_format: 'zip',
-            });
-            let fs = require('fs');
-            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/preview-spec.zip`, Buffer.from(download.data));
+    #   - name: 'Download artifacts'
+    #     uses: actions/github-script@v6
+    #     with:
+    #       script: |
+    #         let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+    #             owner: context.repo.owner,
+    #             repo: context.repo.repo,
+    #             run_id: context.payload.workflow_run.id,
+    #         });
+    #         let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
+    #           return artifact.name == "preview-spec"
+    #         })[0];
+    #         if (matchArtifact === undefined) {
+    #           throw TypeError('Build Artifact not found!');
+    #         }
+    #         let download = await github.rest.actions.downloadArtifact({
+    #             owner: context.repo.owner,
+    #             repo: context.repo.repo,
+    #             artifact_id: matchArtifact.id,
+    #             archive_format: 'zip',
+    #         });
+    #         let fs = require('fs');
+    #         fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/preview-spec.zip`, Buffer.from(download.data));
 
-      - name: 'Unzip artifact'
-        run: unzip preview-spec.zip
+    #   - name: 'Unzip artifact'
+    #     run: unzip preview-spec.zip
 
       - name: Read Event into ENV
         run: |
