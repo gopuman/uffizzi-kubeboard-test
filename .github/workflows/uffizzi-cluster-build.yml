@@ -37,7 +37,7 @@ jobs:
         run: |
           go test -cover $(go list ./... | grep -v /vendor/)
         env:
-          GOPATH: /home/runner/dashboard
+          GOPATH: /home/runner/dashboard/modules
       - name: Build Kube Dashboard
         run: |
           echo "Building Kube Dashboard"
