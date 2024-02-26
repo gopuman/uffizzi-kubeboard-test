@@ -79,35 +79,35 @@ jobs:
     #         cat event.json
 
       # Identify comment to be updated
-      - name: Find comment for Ephemeral Environment
-        # if: ${{ fromJSON(env.EVENT_JSON).action != 'closed' }}
-        uses: peter-evans/find-comment@v2
-        id: find-comment
-        with:
-          issue-number: ${{ env.PR_NUMBER }}
-          comment-author: "github-actions[bot]"
-          body-includes: ${{ env.PR_NUMBER }}
-          direction: last
+    #   - name: Find comment for Ephemeral Environment
+    #     # if: ${{ fromJSON(env.EVENT_JSON).action != 'closed' }}
+    #     uses: peter-evans/find-comment@v2
+    #     id: find-comment
+    #     with:
+    #       issue-number: ${{ env.PR_NUMBER }}
+    #       comment-author: "github-actions[bot]"
+    #       body-includes: ${{ env.PR_NUMBER }}
+    #       direction: last
 
         # Create/Update comment with action deployment status
-      - name: Create or Update Comment with Deployment Notification
-        # if: ${{ fromJSON(env.EVENT_JSON).action != 'closed' }}
-        uses: peter-evans/create-or-update-comment@v2
-        id: notification
-        with:
-            comment-id: ${{ steps.find-comment.outputs.comment-id }}
-            issue-number: ${{ env.PR_NUMBER }}
-            body: |
-                ## Uffizzi Ephemeral Environment - Virtual Cluster
-                :cloud: deploying cluster pr-${{ env.PR_NUMBER }}...
-                :gear: Updating now by workflow run [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
-                    Download the Uffizzi CLI to interact with the upcoming virtual cluster
-                https://docs.uffizzi.com/install
-            edit-mode: replace
+    #   - name: Create or Update Comment with Deployment Notification
+    #     # if: ${{ fromJSON(env.EVENT_JSON).action != 'closed' }}
+    #     uses: peter-evans/create-or-update-comment@v2
+    #     id: notification
+    #     with:
+    #         comment-id: ${{ steps.find-comment.outputs.comment-id }}
+    #         issue-number: ${{ env.PR_NUMBER }}
+    #         body: |
+    #             ## Uffizzi Ephemeral Environment - Virtual Cluster
+    #             :cloud: deploying cluster pr-${{ env.PR_NUMBER }}...
+    #             :gear: Updating now by workflow run [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+    #                 Download the Uffizzi CLI to interact with the upcoming virtual cluster
+    #             https://docs.uffizzi.com/install
+    #         edit-mode: replace
 
     # Create/Connect to Uffizzi Virtual Cluster
       - name: Connect to Virtual Cluster
-        if: ${{ fromJSON(env.EVENT_JSON).action != 'closed' }}
+        # if: ${{ fromJSON(env.EVENT_JSON).action != 'closed' }}
         uses: UffizziCloud/cluster-action@main
         with:
             cluster-name: pr-${{ env.PR_NUMBER }}
