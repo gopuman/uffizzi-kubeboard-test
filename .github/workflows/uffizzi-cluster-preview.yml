@@ -110,7 +110,7 @@ jobs:
         # if: ${{ fromJSON(env.EVENT_JSON).action != 'closed' }}
         uses: UffizziCloud/cluster-action@main
         with:
-            cluster-name: pr-${{ env.PR_NUMBER }}
+            cluster-name: pr-${{ github.event.number }}
 
     # Create/Update comment with action deployment status
       - name: Create or Update Comment with Deployment URL
