@@ -145,7 +145,7 @@ jobs:
             edit-mode: replace
 
       - name: Apply Helm Chart
-        if: ${{ fromJSON(env.EVENT_JSON).action != 'closed' }}
+        # if: ${{ fromJSON(env.EVENT_JSON).action != 'closed' }}
         id: helm
         run: |
             export KUBECONFIG=kubeconfig
