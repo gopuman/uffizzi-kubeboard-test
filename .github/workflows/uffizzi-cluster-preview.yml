@@ -151,3 +151,11 @@ jobs:
             export KUBECONFIG=kubeconfig
             helm repo add kubernetes-dashboard https://kubernetes.github.io/dashboard/
             helm upgrade --install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard --create-namespace --namespace kubernetes-dashboard
+
+      - name: Create ingress
+        # if: ${{ fromJSON(env.EVENT_JSON).action != 'closed' }}
+        id: ingress
+        run: |
+            kubectl create ingress my-kubedb-ingress --kubeconfig="`pwd`/kubeconfig" \
+                --rule="kubedb.uclusters.app.uffizzi.com/*=kubernetes-dashboard:443,tls"
+            
