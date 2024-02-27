@@ -157,5 +157,5 @@ jobs:
         id: ingress
         run: |
             kubectl create ingress my-kubedb-ingress --kubeconfig="`pwd`/kubeconfig" \
-                --rule="kubedb.uclusters.app.uffizzi.com/*=kubernetes-dashboard:443"
+                --rule="kubedb.uclusters.app.uffizzi.com/*=kubernetes-dashboard:8443"
             
